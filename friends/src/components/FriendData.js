@@ -1,14 +1,14 @@
 import React from 'react';
 
-FriendData(props) {
-      console.log(this.props)
+const FriendData = (props) => {
+      console.log('friend data', props)
       return (
         <div>
           {this.props.map(friend => {
-            <div key={props.name} className='friend'>
-              <h1>{props.name}</h1>
-              <p>{props.age} years old</p>
-              <p>email: {props.email}</p>
+            <div key={props.friend.name} className='friend'>
+              <h1>{friend.name}</h1>
+              <p>{friend.age} years old</p>
+              <p>email: {friend.email}</p>
             </div>
           })}
         </div>
