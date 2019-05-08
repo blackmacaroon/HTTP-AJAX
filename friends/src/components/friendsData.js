@@ -1,6 +1,6 @@
 import React from 'react';
 
-const friends = [
+const FriendsData = [
       {
             name: 'Gatsby',
             age: 14,
@@ -56,4 +56,6 @@ const friends = [
             age: 3,
             email: 'fitzy@kitty.com',
       }
-]
+];
+
+export default FriendsData;
