@@ -25,8 +25,8 @@ class Friend extends React.Component {
   };
 
   render(){
-    const { friend } = this.state:
-    if (!this.state.item) {
+    const { friend } = this.state;
+    if (!this.state.friend) {
       return <h2>Wait for it....</h2>
     }
 
