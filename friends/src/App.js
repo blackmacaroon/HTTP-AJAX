@@ -22,6 +22,16 @@ class App extends React.Component {
       console.log(err);
     });
   }
+
+  addFriend = newFriend => {
+    axios
+      .post('http://localhost:5000/friends', newFriend)
+      .then(res => {
+        this.setState({ friends: res.data });
+        console.log(res)
+      })
+      .catch(err => console.log(err));
+  }
  
   render() {
     return (
@@ -29,12 +39,13 @@ class App extends React.Component {
         { this.state.friends.map(friend => 
         <div>
           <h1>{friend.name}</h1>
-          <p>{friend.age}</p>
-          <p>{friend.email}</p>
+            <p>{friend.age} years old</p>
+            <p>email: {friend.email}</p>
+            <p>{friend.weight}ish pounds</p>
           <button>X</button>
         </div>
         )}
-        <NewFriendForm friend={this.state.friends}/>
+        <NewFriendForm friend={this.state.friends} addFriend={this.addFriend}/>
       </div>
     );
   }
