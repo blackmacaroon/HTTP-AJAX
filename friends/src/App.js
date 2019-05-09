@@ -32,6 +32,24 @@ class App extends React.Component {
       })
       .catch(err => console.log(err));
   }
+  
+  updateFriend = id => {
+    axios
+    .put(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+      this.setState({ friends: res.data})
+    .catch(err => console.log(err));
+    })
+  }
+
+  deleteFriend = id => {
+    axios
+      .put(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        this.setState({ friends: res.data})
+      .catch(err => console.log(err));
+    })
+  };
  
   render() {
     return (
@@ -42,7 +60,12 @@ class App extends React.Component {
             <p>{friend.age} years old</p>
             <p>email: {friend.email}</p>
             <p>{friend.weight}ish pounds</p>
-          <button>X</button>
+            <button onClick={this.updateFriend} className="md-button">
+              Update Friend
+            </button>
+            <button onClick={this.deleteFriend} className="md-button">
+              Remove Friend
+            </button>
         </div>
         )}
         <NewFriendForm friend={this.state.friends} addFriend={this.addFriend}/>
