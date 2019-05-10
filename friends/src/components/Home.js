@@ -3,14 +3,14 @@ import React from 'react';
 function Home(props) {
   const routeToFriends = event => {
     event.preventDefault();
-    props.history.push('/friends');
+    props.history.push('/friend-list');
   };
 
   return (
     <div className="home-wrapper">
       <img
         className="home-image"
-        src="https://www.uncommongoods.com/images/category/fun-fullwidth.jpg"
+        src="https://unsplash.com/photos/3Xd5j9-drDA"
         alt=""
       />
       <button onClick={routeToFriends} className="md-button">

@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
 import {
-  BrowserRouter as Router,
   Route,
-  NavLink,
-  withRouter
+  NavLink
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,12 +11,18 @@ import Friend from './components/Friend';
 import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
 
+const blankFriend = {
+  name: '',
+  age: null,
+  email: '',
+  weight: null
+}
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      activeItem: null,
+      activeFriend: null,
       editingFriendId: null,
       isEditing: false,
       friends: [],
@@ -39,7 +43,7 @@ class App extends React.Component {
   getItemById = id => {
     axios
       .get(`http://localhost:5000/itemById/${id}`)
-      .then(res => this.setState({ activeItem: res.data }))
+      .then(res => this.setState({ activeFriend: res.data }))
       .catch(err => console.log(err));
   }
 
@@ -59,29 +63,19 @@ class App extends React.Component {
       .then(res => {
         this.setState({ friends: res.data });
         this.props.history.push('/friend-list');
-        // console.log('add friend res', res)
+        console.log('add friend res', res)
       })
       .catch(err => console.log(err));
   }
-  
-  // updateFriend = updatedFriend => {
-  //   axios
-  //   .put(`http://localhost:5000/friends/${updatedFriend.id}`)
-  //   .then(res => {
-  //     this.setState({ friends: res.data})
-  //     console.log('update friend res', res)
-  //   .catch(err => console.log(err));
-  //   })
-  // }
 
   deleteFriend = (e, id) => {
     e.preventDefault();
     axios
       .delete(`http://localhost:5000/friends/${id}`)
       .then(res => {
-        this.setState({ friends: res.data});
-        this.props.history.push('/friends-list');
-        // console.log('byebye', res)
+        this.setState({ friends: res.data });
+        this.props.history.push('/friend-list');
+        console.log('byebye', res)
       })
       .catch(err => console.log(err));
   };
@@ -97,7 +91,9 @@ class App extends React.Component {
           friends: res.data,
           editingId: null,
           isEditing: false,
+          friend: blankFriend
         });
+        console.log('updated friend', res)
       })
       .catch(error => console.log(error));
   };
@@ -124,41 +120,41 @@ class App extends React.Component {
         </nav>
         <Route exact path='/' component={Home} />
         <Route exact path='/friend-list'
-               render={props => (
-                <FriendList
-                  {...props}
-                  friends={this.state.friends}
-                  getItemById={this.getItemById} 
-                />
-               )}
+          render={props => (
+            <FriendList
+              {...props}
+              friends={this.state.friends}
+              getItemById={this.getItemById} 
+            />
+          )}
         >
         </Route>
         <Route path='/friend-list/:id'
-               render={props => (
-                <Friend 
-                  {...props}
-                  deleteFriend={this.deleteFriend}
-                  friend={this.state.activeItem}
-                  updateItem={this.setUpUpdateForm}
+          render={props => (
+            <Friend 
+              {...props}
+              friends={this.state.friends}
+              deleteFriend={this.deleteFriend}
+              friend={this.state.activeFriend}
+              updateFriend={this.setUpUpdateForm}
             />
           )} 
         >
         </Route>
         <Route path='/friend-form'
-               render={props => (
-                <FriendForm 
-                  {...props}
-                  activeFriend={this.state.activeItem} 
-                  addFriend={this.addFriend}
-                  updateFriend={this.updateFriend}
+          render={props => (
+            <FriendForm 
+              {...props}
+              activeFriend={this.state.activeItem} 
+              addFriend={this.addFriend}
+              updateFriend={this.updateFriend}
             />
           )} 
         >
         </Route>
       </div>
     );
-  }
-    
+  }   
 }
 
 export default App;

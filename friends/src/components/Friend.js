@@ -1,14 +1,16 @@
 import React from 'react';
-import { Route, NavLink } from 'react-router-dom';
-import axios from 'axios';
+// import { Route, NavLink } from 'react-router-dom';
+// import axios from 'axios';
 
-function Friend ({ friend, deleteFriend, history, updateFriend })
+function Friend ({ friend, deleteFriend, history, updateFriend }) {
       // const friend = props.friends.find(
       //       thing => `${thing.id` === props.match.params.id
       // );
-      if (!friend) {
-            return <h2>Wait for it....</h2>
-      }
+      // if (!friend) {
+      //       console.log(friend)
+      //       return <h2>Wait for it....</h2>;
+      // }
+
       return (
             <div className='friend-wrap'>
                   <div className='friend-head'>
@@ -21,7 +23,7 @@ function Friend ({ friend, deleteFriend, history, updateFriend })
                   </div>
                   <button 
                         onClick={e => {
-                              updateItem(e, friend);
+                              updateFriend(e, friend);
                               history.push('/friend-form')
                         }} 
                         className="md-button">
@@ -40,5 +42,5 @@ function Friend ({ friend, deleteFriend, history, updateFriend })
             </div>
       )
 
-
+}
 export default Friend
